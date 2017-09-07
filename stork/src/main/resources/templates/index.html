@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <base href="http://localhost:8080"/>
+    <base target="_blank"/>
+    <title>index</title>
+
+</head>
+<body>
+<!--/*@thymesVar id="name" type="java.lang.String"*/-->
+<p th:text="'Hello！, ' + ${name} + '!'"/>
+<form action="/hello" method="get">
+    <input type="text" name="id"/>
+    <input type="submit" value="确定"/>
+</form>
+</body>
+</html>
