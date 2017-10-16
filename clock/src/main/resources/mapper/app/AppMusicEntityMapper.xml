@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liwei.modules.app.dao.AppMusicDao">
+    <resultMap id="BaseResultMap" type="com.liwei.modules.app.entity.AppMusicEntity">
+        <constructor>
+            <idArg column="music_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="user_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="music_type_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="music_url_path" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="music_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    music_id, user_id, music_type_id, music_url_path, music_name, create_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_music
+        where music_id = #{musicId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_music
+    where music_id = #{musicId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.liwei.modules.app.entity.AppMusicEntity">
+    insert into sys_music (music_id, user_id, music_type_id,
+    music_url_path, music_name, create_time
+    )
+    values (#{musicId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{musicTypeId,jdbcType=BIGINT},
+    #{musicUrlPath,jdbcType=VARCHAR}, #{musicName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+    )
+  </insert>
+    <insert id="insertSelective" parameterType="com.liwei.modules.app.entity.AppMusicEntity">
+        insert into sys_music
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="musicId != null">
+                music_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="musicTypeId != null">
+                music_type_id,
+            </if>
+            <if test="musicUrlPath != null">
+                music_url_path,
+            </if>
+            <if test="musicName != null">
+                music_name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="musicId != null">
+                #{musicId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="musicTypeId != null">
+                #{musicTypeId,jdbcType=BIGINT},
+            </if>
+            <if test="musicUrlPath != null">
+                #{musicUrlPath,jdbcType=VARCHAR},
+            </if>
+            <if test="musicName != null">
+                #{musicName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.liwei.modules.app.entity.AppMusicEntity">
+        update sys_music
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="musicTypeId != null">
+                music_type_id = #{musicTypeId,jdbcType=BIGINT},
+            </if>
+            <if test="musicUrlPath != null">
+                music_url_path = #{musicUrlPath,jdbcType=VARCHAR},
+            </if>
+            <if test="musicName != null">
+                music_name = #{musicName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where music_id = #{musicId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.liwei.modules.app.entity.AppMusicEntity">
+    update sys_music
+    set user_id = #{userId,jdbcType=BIGINT},
+    music_type_id = #{musicTypeId,jdbcType=BIGINT},
+    music_url_path = #{musicUrlPath,jdbcType=VARCHAR},
+    music_name = #{musicName,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP}
+    where music_id = #{musicId,jdbcType=BIGINT}
+  </update>
+
+    <select id="queryListByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_music
+        where user_id = #{userId,jdbcType=BIGINT}
+    </select>
+</mapper>

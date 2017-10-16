@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liwei.modules.app.dao.AppMusicTypeDao">
+    <resultMap id="BaseResultMap" type="com.liwei.modules.app.entity.AppMusicTypeEntity">
+        <constructor>
+            <idArg column="music_type_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="type_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    music_type_id, type_name
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_music_type
+        where music_type_id = #{musicTypeId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_music_type
+    where music_type_id = #{musicTypeId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.liwei.modules.app.entity.AppMusicTypeEntity">
+    insert into sys_music_type (music_type_id, type_name)
+    values (#{musicTypeId,jdbcType=BIGINT}, #{typeName,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.liwei.modules.app.entity.AppMusicTypeEntity">
+        insert into sys_music_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="musicTypeId != null">
+                music_type_id,
+            </if>
+            <if test="typeName != null">
+                type_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="musicTypeId != null">
+                #{musicTypeId,jdbcType=BIGINT},
+            </if>
+            <if test="typeName != null">
+                #{typeName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.liwei.modules.app.entity.AppMusicTypeEntity">
+        update sys_music_type
+        <set>
+            <if test="typeName != null">
+                type_name = #{typeName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where music_type_id = #{musicTypeId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.liwei.modules.app.entity.AppMusicTypeEntity">
+    update sys_music_type
+    set type_name = #{typeName,jdbcType=VARCHAR}
+    where music_type_id = #{musicTypeId,jdbcType=BIGINT}
+  </update>
+</mapper>
